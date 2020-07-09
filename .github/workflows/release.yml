@@ -26,9 +26,8 @@ jobs:
           git config --local user.name "GitHub Action"
           git add .
           git commit -am "Add test changes"
-          git push -u origin master
+          #git push -u origin master
 
-      #- name: Checks-out repository
-      #  uses: actions/checkout@v2
-      #  with:
-      #    path: ${{ env.OPENWRT_SDK_DIR}}/package/VOYAGER-LINUX
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.PAT }}
