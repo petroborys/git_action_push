@@ -29,5 +29,3 @@ jobs:
           #git push -u origin master
 
       - uses: actions/checkout@v2
-        with:
-          token: ${{ secrets.PAT }}
