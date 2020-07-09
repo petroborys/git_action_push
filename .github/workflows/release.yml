@@ -1,32 +1,15 @@
-name: Release-package
-
-on:
-  push:
-    # Sequence of patterns matched against refs/tags
-    tags:
-    - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
-
+name: Push commit
+on: push
 jobs:
-  build:
-
+  report:
     runs-on: ubuntu-latest
-    
     steps:
-
-      - name: Checks-out repository
-        uses: actions/checkout@v2
-          
-      - name: Create local changes
-        run: |
-          echo "Test v1.0.0" >> README.md
-          
-      - name: Commit files
+      - uses: actions/checkout@v2
+      - name: Create report file
+        run: date +%s > report.txt
+      - name: Commit report
         run: |
           git config --global user.name 'Your Name'
           git config --global user.email 'your-username@users.noreply.github.com'
-          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
-          git checkout "${GITHUB_REF:11}"
           git commit -am "Automated report"
           git push
-
-      #- uses: actions/checkout@v2
