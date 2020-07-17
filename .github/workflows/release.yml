@@ -19,17 +19,15 @@ jobs:
       #  uses: actions/checkout@v2
       - name: Create report file
         run: |
-          date +%s >> report${{ env.VERSION }}.txt
+          date +%s >> report-${{ env.VERSION }}.txt
           echo "Test v1.0.0" >> README.md
           ls -la
       - name: Test
-        run: cat report.txt
-      #- name: Commit files
-        #run: |
-          #git config --global user.name 'petroborys'
-          #git config --global user.email 'petroborys@gmail.com'
-          #git add .
-          #git commit -am "Automated report"
+        run: cat report-${{ env.VERSION }}.txt
+      - name: Create Archive With OpenWrt Package
+        run: |
+          zip --junk-paths report-${{ env.VERSION }} report-${{ env.VERSION }}.txt
+          ls -la
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
